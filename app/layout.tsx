@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/ui/Navbar";
-import Hero from './components/sections/Hero'
+
+
 
 
 
@@ -25,7 +26,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <Navbar />
-        <Hero />
 
         {children}
       </body>

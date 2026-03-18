@@ -1,6 +1,36 @@
 export default function Hero() {
   return (
     <section className="h-screen flex items-center justify-between pl-16 pr-16 relative overflow-hidden">
+
+  {/* Background glow — artistic element */}
+  <div 
+    className="absolute pointer-events-none"
+    style={{
+      width: '600px',
+      height: '600px',
+      borderRadius: '50%',
+      background: 'radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0.05) 40%, transparent 70%)',
+      top: '50%',
+      left: '20%',
+      transform: 'translate(-50%, -50%)',
+      filter: 'blur(40px)',
+    }}>
+  </div>
+
+  {/* Second smaller glow — depth */}
+  <div 
+    className="absolute pointer-events-none"
+    style={{
+      width: '300px',
+      height: '300px',
+      borderRadius: '50%',
+      background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
+      top: '30%',
+      left: '40%',
+      transform: 'translate(-50%, -50%)',
+      filter: 'blur(60px)',
+    }}>
+  </div>
       
       {/* Left side — text content */}
       <div className="flex flex-col gap-6 z-10 max-w-2xl">
