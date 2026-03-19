@@ -26,12 +26,12 @@ export default function Contact() {
       <div className="flex flex-col gap-6">
 
         <a 
-          href="mailto:your@email.com"
+          href="mailto:gaureeshkeshari006@gmail.com"
           className="flex items-center gap-4 group w-fit">
           <div className="w-8 h-px bg-[#1a2942] group-hover:bg-[#2563eb] group-hover:w-16 transition-all duration-300"></div>
           <span className="text-[#f0f4ff] text-lg group-hover:text-[#2563eb] transition-colors duration-300"
                 style={{ fontFamily: 'Clash Display' }}>
-            your@email.com
+            gaureeshkeshari006@gmail.com
           </span>
         </a>
 
