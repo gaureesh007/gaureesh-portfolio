@@ -1,3 +1,13 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+
+
 const projects = [
   {
     title: "Moodscape",
@@ -23,26 +33,73 @@ const projects = [
 ]
 
 export default function Projects() {
+  const cardsRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const storyRef = useRef<HTMLDivElement>(null) 
+
+
+  useEffect(() => {
+    if (!cardsRef.current||!headingRef.current||!storyRef.current) return
+
+    const cards = cardsRef.current.children
+    gsap.fromTo(headingRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 80%',
+        }
+      }
+    )
+    gsap.fromTo(storyRef.current,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: storyRef.current,
+          start: 'top 80%',
+        }
+       }
+    )
+    gsap.fromTo(cards,
+      { opacity: 0, x: -40 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 65%',
+        }
+      }
+    )
+  }, [])
   return (
     <section id="work" className="min-h-screen px-16 py-32">
       
       {/* Section header */}
-      <div className="flex items-center gap-4 mb-16">
+      <div ref={storyRef} className="flex items-center gap-4 mb-16">
         <div className="w-8 h-px bg-[#2563eb]"></div>
         <span className="text-[#6b8cba] text-sm tracking-widest uppercase">
           Selected Work
         </span>
       </div>
 
-      <h2 
+      <h2 ref={headingRef}
         className="text-6xl font-bold text-[#f0f4ff] mb-16 max-w-lg leading-tight"
         style={{ fontFamily: 'Clash Display' }}>
         Things I've <br />
         <span className="text-[#2563eb]">Built</span>
       </h2>
+      <br /><br />
 
       {/* Projects grid */}
-      <div className="grid grid-cols-1 gap-6">
+      <div ref={cardsRef} className="grid grid-cols-1 gap-6">
         {projects.map((project, index) => (
           <div 
             key={index}

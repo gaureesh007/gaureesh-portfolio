@@ -1,9 +1,62 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Ambitions() {
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
+    const storyRef = useRef<HTMLDivElement>(null) 
+
+
+  useEffect(() => {
+    if (!headingRef.current || !cardsRef.current||!storyRef.current) return
+    gsap.fromTo(storyRef.current,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: storyRef.current,
+          start: 'top 80%',
+        }
+       }
+    )
+    gsap.fromTo(headingRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 80%',
+        }
+      }
+    )
+
+    gsap.fromTo(cardsRef.current.children,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power2.out',
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 75%',
+        }
+      }
+    )
+  }, [])
   return (
     <section id="ambitions" className="min-h-screen px-16 py-32 flex flex-col justify-center">
 
       {/* Section header */}
-      <div className="flex items-center gap-4 mb-16">
+      <div ref={storyRef} className="flex items-center gap-4 mb-16">
         <div className="w-8 h-px bg-[#2563eb]"></div>
         <span className="text-[#6b8cba] text-sm tracking-widest uppercase">
           Vision
@@ -12,15 +65,17 @@ export default function Ambitions() {
 
       {/* Big statement */}
       <h2
+        ref={headingRef}
+        
         className="text-7xl font-bold text-[#f0f4ff] max-w-4xl leading-tight mb-12"
-        style={{ fontFamily: 'Clash Display' }}>
+        style={{ opacity :0, fontFamily: 'Clash Display' }}>
         I don't want to just work in tech.
         <br />
         <span className="text-[#2563eb]">I want to shape it.</span>
       </h2>
 
       {/* Vision paragraphs */}
-      <div className="grid grid-cols-3 gap-12 max-w-5xl">
+      <div ref={cardsRef} className="grid grid-cols-3 gap-12 max-w-5xl">
 
         <div className="border-t border-[#1a2942] pt-8">
           <h3

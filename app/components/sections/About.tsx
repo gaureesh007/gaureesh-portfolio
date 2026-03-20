@@ -1,3 +1,9 @@
+'use client'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 import ScrollReveal from "../ui/ScrollReveal"
 const timeline = [
   {
@@ -48,11 +54,42 @@ const timeline = [
 ]
 
 export default function About() {
+    const storyRef = useRef<HTMLDivElement>(null) 
+    const cardsRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+    if (!cardsRef.current||!storyRef.current) return
+
+    gsap.fromTo(cardsRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 80%',
+        }
+      }
+    )
+    gsap.fromTo(storyRef.current,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: storyRef.current,
+          start: 'top 80%',
+        }
+       }
+    )
+    
+
+  }, [])
   return (
     <section id="about" className="min-h-screen px-16 py-32">
 
       {/* Section header */}
-      <div className="flex items-center gap-4 mb-16">
+      <div ref={storyRef} className="flex items-center gap-4 mb-16">
         <div className="w-8 h-px bg-[#2563eb]"></div>
         <span className="text-[#6b8cba] text-sm tracking-widest uppercase">
           The Story
@@ -60,15 +97,18 @@ export default function About() {
       </div>
 
       {/* Section title */}
-      <h2
+      <div ref={cardsRef}>
+            <h2 
         className="text-6xl font-bold text-[#f0f4ff] mb-6 leading-tight"
         style={{ fontFamily: 'Clash Display' }}>
         Not a resume. <br />
         <span className="text-[#2563eb]">A journey.</span>
       </h2>
 
-      <p className="text-[#6b8cba] text-lg max-w-xl mb-24 leading-relaxed">
+      <p 
+      className="text-[#6b8cba] text-lg max-w-xl mb-24 leading-relaxed">
         Before the code, before the products, before everything — there was a curious kid building wooden block cities and wondering how the world works      </p>
+      </div>
       <br /><br />
 
       {/* Timeline */}

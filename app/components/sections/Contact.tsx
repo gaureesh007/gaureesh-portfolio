@@ -1,9 +1,48 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Contact() {
+  const contentRef = useRef<HTMLDivElement>(null)
+    const storyRef = useRef<HTMLDivElement>(null) 
+
+
+  useEffect(() => {
+    if (!contentRef.current||!storyRef.current) return
+    gsap.fromTo(storyRef.current,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: storyRef.current,
+          start: 'top 80%',
+        }
+       }
+    )
+    gsap.fromTo(contentRef.current.children,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power2.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: 'top 50%',
+        }
+      }
+    )
+  }, [])
   return (
     <section id="contact" className="min-h-screen px-16 py-32 flex flex-col justify-center">
+      <div ref={contentRef}>
 
       {/* Section header */}
-      <div className="flex items-center gap-4 mb-16">
+      <div ref={storyRef} className="flex items-center gap-4 mb-16">
         <div className="w-8 h-px bg-[#2563eb]"></div>
         <span className="text-[#6b8cba] text-sm tracking-widest uppercase">
           Contact
@@ -68,6 +107,7 @@ export default function Contact() {
         </span>
       </div>
 
+    </div>
     </section>
   )
 }
