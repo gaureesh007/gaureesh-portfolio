@@ -1,3 +1,4 @@
+import ScrollReveal from "../ui/ScrollReveal"
 const timeline = [
   {
     year: "2005",
@@ -10,7 +11,7 @@ const timeline = [
     description: "A school ground full of children. And me — walking alone. Not sad. Just observing. Those years made me someone deeply comfortable in his own mind."
   },
   {
-    year: "2014",
+    year: "2012",
     title: "The builder",
     description: "Every holiday I built cities out of wooden blocks. Created stories around them. Then destroyed everything and started again. Not frustration — curiosity."
   },
@@ -79,6 +80,8 @@ export default function About() {
         {/* Timeline items */}
         <div className="flex flex-col gap-16">
           {timeline.map((item, index) => (
+            <ScrollReveal key={index}>
+
             <div key={index} className="flex items-start gap-12">
 
               {/* Year */}
@@ -108,6 +111,8 @@ export default function About() {
               </div>
 
             </div>
+            </ScrollReveal>
+
           ))}
         </div>
 
