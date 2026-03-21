@@ -39,7 +39,7 @@ export default function CustomCursor() {
 
   window.addEventListener('mousemove', moveCursor)
 
-  const hoverables = document.querySelectorAll('a, button')
+  const hoverables = document.querySelectorAll('a, button,.hoverable')
   hoverables.forEach(el => {
     el.addEventListener('mouseenter', handleMouseEnter)
     el.addEventListener('mouseleave', handleMouseLeave)

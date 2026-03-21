@@ -176,36 +176,97 @@ export default function Hero() {
         "-=0.3",
       );
     // Role cycling
-    const roles = ["Engineer", "Entrepreneur", "Artist"];
-    let current = 0;
+    // const roles = ["Engineer", "Entrepreneur", "Artist"];
+    // let current = 0;
 
-    const cycleRole = () => {
-      const el = document.getElementById("cycling-role");
-      if (!el) return;
+    // const cycleRole = () => {
+    //   const el = document.getElementById("cycling-role");
+    //   if (!el) return;
 
-      current = (current + 1) % roles.length;
+    //   current = (current + 1) % roles.length;
 
-      gsap.to(el, {
-        y: -30,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.in",
-        onComplete: () => {
-          el.textContent = roles[current];
-          gsap.fromTo(
-            el,
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" },
-          );
-        },
-      });
-    };
+    //   gsap.to(el, {
+    //     y: -30,
+    //     opacity: 0,
+    //     duration: 0.5,
+    //     ease: "power2.in",
+    //     onComplete: () => {
+    //       el.textContent = roles[current];
+    //       gsap.fromTo(
+    //         el,
+    //         { y: 30, opacity: 0 },
+    //         { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" },
+    //       );
+    //     },
+    //   });
+    // };
 
-    const interval = setInterval(cycleRole, 2000);
+    // const interval = setInterval(cycleRole, 2000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
+    // Typewriter effect
+const roles = ['Engineer', 'Entrepreneur', 'Artist']
+let roleIndex = 0
+let charIndex = 0
+let isDeleting = false
+let typeTimer: ReturnType<typeof setTimeout>
+
+const typeWriter = () => {
+  
+  const el = document.getElementById('cycling-role')
+  if (!el) return
+
+  const currentRole = roles[roleIndex]
+  const typingSpeed = isDeleting ? 50 : 85 + Math.random() * 40
+
+  if (!isDeleting) {
+    // Typing forward
+    charIndex++
+    el.textContent = currentRole.slice(0, charIndex)
+
+    if (charIndex === currentRole.length) {
+      // Finished typing — pause then start deleting
+      isDeleting = true
+      typeTimer = setTimeout(typeWriter, 2000)
+    } else {
+      typeTimer = setTimeout(typeWriter, typingSpeed)
+
+    }
+  } else {
+    // Deleting
+    charIndex--
+    el.textContent = currentRole.slice(0, charIndex)
+
+    if (charIndex === 0) {
+      // Finished deleting — move to next role
+      isDeleting = false
+      roleIndex = (roleIndex + 1) % roles.length
+      typeTimer = setTimeout(typeWriter, 500)
+    } else {
+      typeTimer = setTimeout(typeWriter, typingSpeed)
+    }
+  }
+}
+
+// Blinking cursor
+const cursorEl = document.getElementById('cursor-blink')
+let cursorVisible = true
+const cursorTimer = setInterval(() => {
+  if (cursorEl) {
+    cursorVisible = !cursorVisible
+    cursorEl.style.opacity = cursorVisible ? '1' : '0'
+  }
+}, 500)
+
+// Start typewriter after hero animation finishes
+typeTimer = setTimeout(typeWriter, 1800)
+
+return () => {
+  clearTimeout(typeTimer)
+  clearInterval(cursorTimer)
+}
   }, []);
 
   return (
@@ -267,8 +328,7 @@ export default function Hero() {
         </h1>
 
         {/* Role */}
-        {/* Role */}
-<div
+{/* <div
   ref={roleRef}
   className="flex items-center gap-3"
   style={{ opacity: 0 }}
@@ -285,6 +345,32 @@ export default function Hero() {
     style={{ fontFamily: "Clash Display" }}
   >
     Engineer
+  </span>
+</div> */}
+  {/* Role */}
+<div
+  ref={roleRef}
+  className="flex items-center gap-3"
+  style={{ opacity: 0 }}
+>
+  <span
+    className="text-2xl text-[#6b8cba]"
+    style={{ fontFamily: "Clash Display" }}
+  >
+    I am an
+  </span>
+  <span
+    id="cycling-role"
+    className="text-2xl text-[#f0f4ff] font-bold"
+    style={{ fontFamily: "Clash Display" }}
+  >
+  </span>
+  <span
+    id="cursor-blink"
+    className="text-2xl text-[#f0f4ff] font"
+    style={{ fontFamily: "Clash Display" }}
+  >
+    |
   </span>
 </div>
 

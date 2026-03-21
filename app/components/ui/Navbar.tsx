@@ -1,35 +1,60 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <>
-  <nav 
-    className="fixed top-0 left-0 w-full z-50 px-16 py-6 flex items-center justify-between backdrop-blur-md"
-    style={{ backgroundColor: 'rgba(2, 4, 9, 0.75)' }}>
-    
-    {/* Logo */}
-    <div style={{ fontFamily: 'Clash Display', fontWeight: 700, fontSize: '1.5rem' }}
-         className="text-[#f0f4ff]">
-      GK
-    </div>
+      <nav
+        className="fixed top-0 left-0 w-full z-50 px-16 py-6 flex items-center justify-between backdrop-blur-xl transition-all duration-500"
+        style={{
+          backgroundColor: scrolled
+            ? 'rgba(0, 6, 21, 0.8)'
+            : 'rgba(2, 4, 9, 0.0)',
+          borderBottom: scrolled
+            ? '1px solid rgba(26, 41, 66, 0.8)'
+            : '1px solid transparent',
+          paddingTop: scrolled ? '1rem' : '1.5rem',
+          paddingBottom: scrolled ? '1rem' : '1.5rem',
+        }}>
 
-    {/* Nav Links */}
-    <div className="flex items-center gap-8">
-      <a href="#about" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">About</a>
-      <a href="#work" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">Work</a>
-      <a href="#skills" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">Skills</a>
-      <a href="#contact" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">Contact</a>
-    </div>
+        {/* Logo */}
+        <div
+          style={{ fontFamily: 'Clash Display', fontWeight: 700, fontSize: '1.5rem' }}
+          className="text-[#f0f4ff]">
+          GK
+        </div>
 
-  </nav>
+        {/* Nav Links */}
+        <div className="flex items-center gap-8">
+          <a href="#about" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">About</a>
+          <a href="#work" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">Work</a>
+          <a href="#skills" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">Skills</a>
+          <a href="#contact" className="text-[#6b8cba] hover:text-[#f0f4ff] text-sm transition-colors duration-300">Contact</a>
+        </div>
 
-  {/* Smooth gradient fade — sits below navbar */}
-  <div 
-    className="fixed top-0 left-0 w-full z-40 pointer-events-none"
-    style={{ 
-      height: '160px',
-      background: 'linear-gradient(to bottom, rgba(2,4,9,0.95) 0%, rgba(2,4,9,0.7) 50%, transparent 100%)'
-    }}>
-  </div>
-</>
-    
+      </nav>
+
+      {/* Gradient fade */}
+      <div
+        className="fixed top-0 left-0 w-full z-40 pointer-events-none transition-opacity duration-500"
+        style={{
+          height: '160px',
+          background: 'linear-gradient(to bottom, rgba(2,4,9,0.95) 0%, rgba(2,4,9,0.7) 50%, transparent 100%)',
+          opacity: scrolled ? 0 : 1,
+        }}>
+      </div>
+    </>
   )
 }

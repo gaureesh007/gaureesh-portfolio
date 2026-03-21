@@ -126,7 +126,7 @@ export default function About() {
 
               {/* Year */}
               <div
-                className="w-24 text-right flex-shrink-0 pt-1"
+                className="hoverable w-24 text-right flex-shrink-0 pt-1"
                 style={{ fontFamily: 'Clash Display' }}>
                 <span className="text-[#2563eb] text-sm font-bold tracking-wider">
                   {item.year}
@@ -139,7 +139,7 @@ export default function About() {
               </div>
 
               {/* Content */}
-              <div className="flex-1 pb-4">
+              <div className=" flex-1 pb-4">
                 <h3
                   className="text-xl font-bold text-[#f0f4ff] mb-3"
                   style={{ fontFamily: 'Clash Display' }}>
