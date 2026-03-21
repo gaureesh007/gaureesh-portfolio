@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/ui/Navbar";
 import SmoothScroll from "./components/ui/SmoothScroll";
+import CustomCursor from './components/ui/CustomCursor'
 
 
 
@@ -26,7 +27,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <SmoothScroll>
+        <CustomCursor/>
+          <SmoothScroll>
           <Navbar />
           {children}
         </SmoothScroll>
