@@ -104,7 +104,7 @@ export default function Skills() {
               {items.map((skill) => (
                 <span
                   key={skill}
-                  className="px-4 py-2 border border-[#1a2942] text-[#f0f4ff] text-sm hover:border-[#2563eb] hover:text-[#2563eb] transition-all duration-300 cursor-default">
+                  className="hoverable px-4 py-2 border border-[#1a2942] text-[#f0f4ff] text-sm hover:border-[#2563eb] hover:text-[#2563eb] transition-all duration-300 cursor-default">
                   {skill}
                 </span>
               ))}

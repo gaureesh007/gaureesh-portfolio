@@ -148,6 +148,7 @@ export default function Projects() {
         Things I've <br />
         <span className="text-[#2563eb]">Built</span>
       </h2>
+      <br /><br />
 
       {/* Projects grid */}
       <div ref={cardsRef} className="grid grid-cols-1 gap-6 hoverable">
