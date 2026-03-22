@@ -2,6 +2,7 @@
 
 
 import ParticleField from "../ui/ParticleField";
+import Mandala from '../ui/Mandala'
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
@@ -158,6 +159,8 @@ return () => {
       ></div>
       {/* Particle field */}
       <ParticleField />
+      {/* Mandala */}
+      <Mandala />
 
       <div
         className="absolute pointer-events-none"

@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "./components/ui/Navbar";
 import SmoothScroll from "./components/ui/SmoothScroll";
 import CustomCursor from './components/ui/CustomCursor'
-
+import Mandala from "./components/ui/Mandala";
 
 
 
@@ -28,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <CustomCursor/>
+            <Mandala/>
           <SmoothScroll>
           <Navbar />
           {children}
