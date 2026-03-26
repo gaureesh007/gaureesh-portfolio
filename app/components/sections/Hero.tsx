@@ -1,5 +1,6 @@
 'use client';
-
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 
 import ParticleField from "../ui/ParticleField";
 import Mandala from '../ui/Mandala'
@@ -8,6 +9,8 @@ import gsap from "gsap";
 
 
 export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const tagRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const roleRef = useRef<HTMLParagraphElement>(null);
@@ -46,6 +49,17 @@ export default function Hero() {
         { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
         "-=0.3",
       );
+      // Hero parallax
+gsap.to(contentRef.current, {
+  y: -100,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: heroRef.current,
+    start: 'top top',
+    end: 'bottom top',
+    scrub: true,
+  }
+})
     // Role cycling
     // const roles = ["Engineer", "Entrepreneur", "Artist"];
     // let current = 0;
@@ -141,7 +155,7 @@ return () => {
   }, []);
 
   return (
-    <section className="h-screen flex items-center justify-between pl-16 pr-16 relative overflow-hidden">
+    <section ref={heroRef} className="h-screen flex items-center justify-between pl-16 pr-16 relative overflow-hidden">
       {/* Background glow */}
       <div
         className="absolute pointer-events-none"
@@ -178,7 +192,7 @@ return () => {
       ></div>
 
       {/* Left side */}
-      <div className="flex flex-col gap-6 z-10 max-w-2xl">
+      <div ref={contentRef} className="flex flex-col gap-6 z-10 max-w-2xl">
         {/* Tag */}
         <div
           ref={tagRef}
